@@ -1,32 +1,30 @@
-const url = "https://be-2-bandung-25-production.up.railway.app/feedback"; // Mengubah action form
+function setupContactForm() {
+    const form = document.getElementById("feedback-form");
+    console.log(form, "ini form");
 
-function postFeedback(event) {
-    event.preventDefault();
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-    const formData = {
-        nama: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        feedback: document.getElementById("feedback").value,
-    };
+        const formData = new FormData(form);
+        const formProps = Object.fromEntries(formData);
+        console.log(formProps, "ini form props");
 
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-    })
-        .then((response) => response.json())
-        .then((data) => {
+        try {
+            const response = await fetch("https://be-2-bandung-25-production.up.railway.app/feedback", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formProps),
+            });
+
+            const data = await response.json();
             console.log("Success:", data);
-            alert("Sukses mengirim feedback");
-            document.getElementById("name").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("feedback").value = "";
-        })
-        .catch((error) => {
+        } catch (error) {
             console.error("Error:", error);
-        });
+        }
+    });
 }
 
-document.getElementById("feedback").addEventListener("submit", (event) => postFeedback(event));
+// Call the setupContactForm function
+setupContactForm();
