@@ -1,5 +1,5 @@
 const API_KEY = "83c980cec0224e9bbe231632d7b7b720";
-const url = "https://newsapi.org/v2/everything?q=basketball&apiKey=83c980cec0224e9bbe231632d7b7b720";
+const url = "https://be-2-bandung-25-production.up.railway.app/article";
 const backupUrl = "./backup.json";
 
 // Fetch news data from the API
